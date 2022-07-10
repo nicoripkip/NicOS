@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Niko van Ommen (nikovanommen.nvo@gmail.com)
  * @brief 
- * @version 0.1
+ * @version 1.0.0
  * @date 2022-07-10
  * 
  * @copyright Copyright (c) 2022
@@ -11,6 +11,7 @@
 
 
 #include <Arduino.h>
+#include "scheduler/scheduler.hpp"
 
 
 #define RUN_FLAG true
@@ -26,10 +27,18 @@ void run();
  */
 int main() 
 {
+    // init fase
+    NICOS__Scheduler::init();
+
+    // Setup pins
     pinMode(2, OUTPUT);
 
+    // Setup communication links
     Serial.begin(115200);
 
+
+
+    // Setup loop
     run();
 
     return 0;
@@ -42,8 +51,11 @@ int main()
  */
 void run()
 {
+    // Flag that determines the state of the running system
     while (RUN_FLAG) {
-        Serial.println("[info]\t\tMain program runs!!!");
-        delayMicroseconds(500);
+        // Serial.print("[info]\t\tMaximaal aantal taken: ");
+        // Serial.println(NICOS__Scheduler::get_max_tasks());
+        NICOS__Scheduler::print_tasks();
+        delayMicroseconds(50000);
     }
 }
