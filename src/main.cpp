@@ -17,6 +17,7 @@
 
 
 #define RUN_FLAG true
+#define SERIAL_BAUD_RATE 0x01C200
 
 
 void run();
@@ -27,11 +28,10 @@ unsigned int data;
 
 
 /**
- * @brief Heart of the program
+ * @brief Function to setup the operating system components stuff
  * 
- * @return int 
  */
-int main() 
+void setup()
 {
     // init fase
     NICOS__IO::init();
@@ -42,29 +42,17 @@ int main()
     pinMode(2, OUTPUT);
 
     // Setup communication links
-    Serial.begin(115200);
-
-    // Setup loop
-    run();
-
-    return 0;
+    Serial.begin(SERIAL_BAUD_RATE);
 }
 
 
 /**
- * @brief Function for repeating functions of the operating system
+ * @brief Function to run sertain components from the operating system
  * 
  */
-void run()
+void loop()
 {
-    // Flag that determines the state of the running system
-    while (RUN_FLAG) {
-        // Serial.print("[info]\t\tMaximaal aantal taken: ");
-        // Serial.println(NICOS__Scheduler::get_max_tasks());
-        // NICOS__Scheduler::print_tasks();
-
-        read();
-    }
+    read();
 }
 
 

@@ -49,6 +49,30 @@ namespace NICOS__Memory
     void mem_insert_p_id(unsigned int, long, long, unsigned int, unsigned int);
     struct block_t mem_free(unsigned int);
     void mem_copy(unsigned int, unsigned int);
+
+
+    /**
+     * @brief Class to construct a stack object
+     * 
+     * @tparam T 
+     */
+    template <class T>
+    class Stack 
+    {
+        private:
+            T head;
+            T last;
+
+        public:
+            void push(const T);
+            T pop();
+            bool is_in_stack(const T);
+            bool empty();
+            void set_head(const T);
+            T get_head();
+            void set_last(const T);
+            T get_last();
+    };
 }
 
 

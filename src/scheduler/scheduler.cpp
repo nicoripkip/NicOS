@@ -86,9 +86,29 @@ struct task_t NICOS__Scheduler::remove_task(unsigned int position)
  * 
  * @return unsigned int 
  */
-unsigned int NICOS__Scheduler::get_max_tasks()
+unsigned int NICOS__Scheduler::get_max_task_size()
 {
     return MAX_TASK_IN_SCHEDULER;
+}
+
+
+/**
+ * @brief Function to get the size of the current tasks in scheduler structure
+ * 
+ * @return unsigned int 
+ */
+unsigned int NICOS__Scheduler::get_current_task_size()
+{
+    unsigned int count = 0;
+    unsigned int i;
+
+    for (i = 0; i < MAX_TASK_IN_SCHEDULER; i++) {
+        if (scheduler_structure[i].state != taskState_e::EMPTY || scheduler_structure[i].state != taskState_e::SUSPENDED) {
+            ++count;
+        }
+    }
+
+    return count;
 }
 
 

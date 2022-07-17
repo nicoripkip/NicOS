@@ -86,3 +86,17 @@ struct block_t NICOS__Memory::mem_free(unsigned int address)
     memory[address].state = blockState_e::FREE;
     return memory[address];
 }
+
+
+/** ========================================
+ *              Stack Region
+ *  ======================================== */
+
+
+template <class T>
+void NICOS__Memory::Stack<T>::push(const T value)
+{
+    if (head.empty()) {
+        
+    }
+}

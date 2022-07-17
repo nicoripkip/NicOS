@@ -51,7 +51,8 @@ namespace NICOS__Scheduler
     void init();
     void add_task(char *, char *);
     struct task_t remove_task(unsigned int);
-    unsigned int get_max_tasks();
+    unsigned int get_max_task_size();
+    unsigned int get_current_task_size();
     void print_tasks();
 }
 
