@@ -25,7 +25,7 @@ using namespace NICOS__Scheduler;
 #endif
 
 
-static struct Task_t scheduler_structure[MAX_TASK_IN_SCHEDULER];
+static struct task_t scheduler_structure[MAX_TASK_IN_SCHEDULER];
 
 
 /**
@@ -37,10 +37,10 @@ void NICOS__Scheduler::init()
     unsigned int i;
 
     for (i = 0; i < MAX_TASK_IN_SCHEDULER; i++) {
-        scheduler_structure->title = "";
-        scheduler_structure->state = TaskState_e::EMPTY;
-        scheduler_structure->position = i;
-        scheduler_structure->file = "";
+        scheduler_structure[i].title = "";
+        scheduler_structure[i].state = taskState_e::EMPTY;
+        scheduler_structure[i].position = i;
+        scheduler_structure[i].file = "";
     }
 }
 
@@ -56,13 +56,13 @@ void NICOS__Scheduler::add_task(char *title, char *file)
     unsigned int i;
 
     for (i = 0; i < MAX_TASK_IN_SCHEDULER; i++) {
-        if (scheduler_structure[i].state == TaskState_e::EMPTY || scheduler_structure[i].state == TaskState_e::SUSPENDED) {
+        if (scheduler_structure[i].state == taskState_e::EMPTY || scheduler_structure[i].state == taskState_e::SUSPENDED) {
             break;
         }
     }
 
     scheduler_structure[i].title = title;
-    scheduler_structure[i].state = TaskState_e::IDLE;
+    scheduler_structure[i].state = taskState_e::IDLE;
     scheduler_structure[i].position = (int)i;
     scheduler_structure[i].file = file;
 }
@@ -74,9 +74,9 @@ void NICOS__Scheduler::add_task(char *title, char *file)
  * @param position 
  * @return struct Task_t 
  */
-struct Task_t NICOS__Scheduler::remove_task(unsigned int position)
+struct task_t NICOS__Scheduler::remove_task(unsigned int position)
 {
-    scheduler_structure[position].state = TaskState_e::EMPTY;
+    scheduler_structure[position].state = taskState_e::EMPTY;
     return scheduler_structure[position];
 }
 

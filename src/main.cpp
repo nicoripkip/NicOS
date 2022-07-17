@@ -12,12 +12,18 @@
 
 #include <Arduino.h>
 #include "scheduler/scheduler.hpp"
+#include "io/io.hpp"
+#include "memory/memory.hpp"
 
 
 #define RUN_FLAG true
 
 
 void run();
+void read();
+
+
+unsigned int data;
 
 
 /**
@@ -28,6 +34,8 @@ void run();
 int main() 
 {
     // init fase
+    NICOS__IO::init();
+    NICOS__Memory::mem_init();
     NICOS__Scheduler::init();
 
     // Setup pins
@@ -35,8 +43,6 @@ int main()
 
     // Setup communication links
     Serial.begin(115200);
-
-
 
     // Setup loop
     run();
@@ -55,7 +61,23 @@ void run()
     while (RUN_FLAG) {
         // Serial.print("[info]\t\tMaximaal aantal taken: ");
         // Serial.println(NICOS__Scheduler::get_max_tasks());
-        NICOS__Scheduler::print_tasks();
-        delayMicroseconds(50000);
+        // NICOS__Scheduler::print_tasks();
+
+        read();
     }
+}
+
+
+/**
+ * @brief Function to read incoming data from the command line
+ * 
+ */
+void read()
+{
+    if (Serial.available()) {
+        data = Serial.read();
+    }
+
+    Serial.print("[info]\t\tData: ");
+    Serial.println(data);
 }
