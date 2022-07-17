@@ -33,6 +33,11 @@
 namespace NICOS__IO
 {
     void init();
+
+    void set_gpio_pin(unsigned int, unsigned int, unsigned int);
+    int read_gpio_pin(unsigned int);
+    unsigned int find_io_pin(unsigned int, unsigned int);
+
     void send();
     void receive();
     bool is_available();

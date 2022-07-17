@@ -16,26 +16,67 @@
 
 
 #if defined(ARDUINO_AVR_UNO)
-    #define DIGITAL_PORT_1              0x01
-    #define DIGITAL_PORT_2              0x02
-    #define DIGITAL_PORT_3              0x03
-    #define DIGITAL_PORT_4              0x04
-    #define DIGITAL_PORT_5              0x05
-    #define DIGITAL_PORT_6              0x06
-    #define DIGITAL_PORT_7              0x07
-    #define DIGITAL_PORT_8              0x08
-    #define DIGITAL_PORT_9              0x09
-    #define DIGITAL_PORT_10             0x0A
-    #define DIGITAL_PORT_11             0x0B
-    #define DIGITAL_PORT_12             0x0C
-    #define DIGITAL_PORT_13             0x0D
+    #define MCU_CONTROL_REGISTER        0x35
 
-    #define PWM_PORT_1                  0x03
-    #define PWM_PORT_2                  0x05
-    #define PMW_PORT_3                  0x06
-    #define PWM_PORT_4                  0x09
-    #define PWM_PORT_5                  0x0A
-    #define PWM_PORT_6                  0x0B
+    #define REGISTER_B                  0x24
+    #define REGISTER_C                  0x27
+    #define REGISTER_D                  0x2A
+
+    #define PORTB                       0x25
+    #define PORTC                       0x28
+    #define PORTD                       0x2B
+
+    #define PINB                        0x23
+    #define PINC                        0x26
+    #define PIND                        0x29
+
+
+    /**
+     * @brief Structure containing all pinmode options
+     * 
+     */
+    unsigned int PINMODE[3][2][8] = {
+        { 
+            DDRB, 
+            {
+                0b00000001,
+                0b00000010,
+                0b00000100,
+                0b00001000,
+                0b00010000,
+                0b00100000,
+                0b01000000,
+                0b10000000,
+            },
+        },
+        {
+            DDRC,
+            {
+                0b00000001,
+                0b00000010,
+                0b00000100,
+                0b00001000,
+                0b00010000,
+                0b00100000,
+                0b01000000,
+                0b10000000,
+            },
+        },
+        {
+            DDRD,
+            {
+                0b00000001,
+                0b00000010,
+                0b00000100,
+                0b00001000,
+                0b00010000,
+                0b00100000,
+                0b01000000,
+                0b10000000,
+            },
+        },
+    }                       
+
 #elif defined(ESP32)
     #define DIGITAL_GPIO_1              0x01
     #define DIGITAL_GPIO_2              0x02
@@ -81,6 +122,7 @@
     #define DIGITAL_GPIO_42             0x2A
 #else
     #define NO_DIGITAL_PORTS_DEFINED    true
+    unsigned int PINMODE[3][2][8];
 #endif
 
 
