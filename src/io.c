@@ -1,8 +1,12 @@
 #include "io.h"
 #include "utils.h"
 #include <stdio.h>
+#include <math.h>
 #include <avr/io.h>
 #include <avr/delay.h>
+
+
+#define m 16UL
 
 
 /**
@@ -14,7 +18,7 @@
  **/
 void uart_init(u8 rx, u8 tx, u64 baud)
 {
-  u8 rate = (F_CPU / (baud * 16)) - 1;
+  u8 rate = ((F_CPU / (baud * m)) - 1) + 1;
   // u8 rate = FOSC/16/baud-1;
   
   UBRR0H = (rate >> 8);
